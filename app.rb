@@ -6,5 +6,10 @@ class App < Sinatra::Base
     content_type "application/json"
     body(Employee.create(name: params["name"], email: params["email"], phone: params["phone"], salary: params["salary"])).to_json
   end
+
+  get "/employees/:name" do
+    content_type "application/json"
+    body(Employee.where(name: params["name"]).to_json)
+  end
 run! if app_file == $PROGRAM_NAME
 end

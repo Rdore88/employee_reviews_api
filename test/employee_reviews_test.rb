@@ -1,28 +1,33 @@
 require_relative "test_helper"
 
 class TestEmployee < Minitest::Test
+  include Rack::Test::Methods
   def teardown
     Employee.delete_all
   end
-focus
+
   def test_classes_exist
     assert Employee
   end
 
+  def app
+    App
+  end
+
   def test_can_create_new_employee
-    new_employee = Employee.create(name: "Dan", email: "d@mail.com", phone: "914-555-5555", salary: 50_000.00)
-    assert new_employee
+    new_employee = Employee.create(name: "Dan", email: "d@mail.com", phone: "914-555-5555", salary: "50_000.00")
+    assert_instance_of(Employee, new_employee)
   end
 
   def test_can_get_employee_name
-    new_employee = Employee.create(name: "Dan", email: "d@mail.com", phone: "914-555-5555", salary: 50_000.00)
+    new_employee = Employee.create(name: "Dan", email: "d@mail.com", phone: "914-555-5555", salary: "50_000.00")
     dan = Employee.find(new_employee.id)
     assert_equal "Dan", dan.name
   end
 
   def test_can_get_employee_salary
-    new_employee = Employee.create(name: "Dan", email: "d@mail.com", phone: "914-555-5555", salary: 50_000.00)
-    assert_equal 50_000.00, new_employee.salary
+    new_employee = Employee.create(name: "Dan", email: "d@mail.com", phone: "914-555-5555", salary: "50_000.00")
+    assert_equal "50_000.00", new_employee.salary
   end
 
   # def test_add_employee_review

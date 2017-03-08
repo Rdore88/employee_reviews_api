@@ -30,6 +30,11 @@ class TestApp < Minitest::Test
     get "/employees/", name: "Dan"
     Employee.where(name: "Dan").destroy_all
     refute Employee.where(name: "Dan").any?
+  end
 
+  def test_employee_list
+    Employee.create(name: "Dan")
+    Employee.create(name: "Phill")
+    assert_equal 2, Employee.all.length
   end
 end

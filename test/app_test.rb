@@ -21,7 +21,15 @@ class TestApp < Minitest::Test
 
   def test_can_get_employee_name
     Employee.create(name: "Dan")
-    response = get "/employees/", name: "Dan"
+    get "/employees/", name: "Dan"
     assert_equal "Dan", Employee.where(name: "Dan").first.name
+  end
+
+  def test_delete_employee
+    Employee.create(name: "Dan")
+    get "/employees/", name: "Dan"
+    Employee.where(name: "Dan").destroy_all
+    refute Employee.where(name: "Dan").any?
+
   end
 end

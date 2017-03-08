@@ -11,5 +11,10 @@ class App < Sinatra::Base
     content_type "application/json"
     body(Employee.where(name: params["name"]).to_json)
   end
+
+  delete "/employees/:name" do
+  content_type "application/json"
+  body(Employee.where(name: params["name"]).destroy_all.to_json)
+end
 run! if app_file == $PROGRAM_NAME
 end

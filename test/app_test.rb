@@ -27,8 +27,8 @@ class TestApp < Minitest::Test
 
   def test_delete_employee
     Employee.create(name: "Dan")
-    get "/employees/Dan"
-    Employee.where(name: "Dan").destroy_all
+    delete "/employees/Dan"
+    # Employee.where(name: "Dan").destroy_all
     refute Employee.where(name: "Dan").any?
   end
 

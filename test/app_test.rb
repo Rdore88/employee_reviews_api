@@ -21,13 +21,13 @@ class TestApp < Minitest::Test
 
   def test_can_get_employee_name
     Employee.create(name: "Dan")
-    get "/employees/", name: "Dan"
+    get "/employees/Dan"
     assert_equal "Dan", Employee.where(name: "Dan").first.name
   end
 
   def test_delete_employee
     Employee.create(name: "Dan")
-    get "/employees/", name: "Dan"
+    get "/employees/Dan"
     Employee.where(name: "Dan").destroy_all
     refute Employee.where(name: "Dan").any?
   end
@@ -40,7 +40,7 @@ class TestApp < Minitest::Test
 
   def test_change_employee_name
     Employee.create(name: "Dan")
-    patch "/employees/", name: "Dan", newname: "Robby"
+    patch "/employees/Dan/Robby/"
     dan = Employee.where(name: "Dan").first
     dan.name = "Robby"
     assert_equal "Robby", dan.name

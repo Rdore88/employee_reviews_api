@@ -22,5 +22,12 @@ class App < Sinatra::Base
     body(Employee.where(name: params["name"]).destroy_all.to_json)
   end
 
+  patch "/employees/:name/:newname" do
+    content_type "application/json"
+    old_employee = Employee.where(name: params["name"]).first
+    old_employee.name = params["newname"]
+    body(old_employee)
+  end
+
 run! if app_file == $PROGRAM_NAME
 end

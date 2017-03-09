@@ -1,5 +1,6 @@
 task :test do
-  require_relative "test/employees_reviews_test"
+  require_relative "test/employee_reviews_test"
+  require_relative "test/app_test"
 end
 
 namespace :db do

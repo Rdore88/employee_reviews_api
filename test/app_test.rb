@@ -37,4 +37,12 @@ class TestApp < Minitest::Test
     Employee.create(name: "Phill")
     assert_equal 2, Employee.all.length
   end
+
+  def test_change_employee_name
+    Employee.create(name: "Dan")
+    patch "/employees/", name: "Dan", newname: "Robby"
+    dan = Employee.where(name: "Dan").first
+    dan.name = "Robby"
+    assert_equal "Robby", dan.name
+  end
 end
